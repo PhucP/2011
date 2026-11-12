@@ -1,0 +1,74 @@
+/* A single, fixed envelope coordinate system throughout lift, opening and closing.
+   Sibling stacking contexts: back 10, open flap 15, cards 20, pocket 30,
+   closed flap 40, hit target 50, seal 60. No nested preserve-3d contexts. */
+.floating-envelope,
+.envelope-open .floating-envelope {
+  width:35%; height:auto; aspect-ratio:1.85;
+  left:50%; top:61%;
+  transform:translate(-50%,-50%) rotate(-3deg);
+  transform-style:flat; perspective:none;
+  animation:envelope-breathe 6s ease-in-out infinite;
+}
+body[data-scene='flying'] .floating-envelope,
+body[data-scene='opening'] .floating-envelope,
+body[data-scene='gallery'] .floating-envelope,
+body[data-scene='closing'] .floating-envelope { animation:none; }
+.envelope-back { z-index:10; }
+.envelope-flap {
+  height:67%; z-index:40; transform:rotateX(0deg);
+  transform-origin:50% 0; backface-visibility:visible;
+  transform-style:flat; filter:none;
+  transition:transform 1s cubic-bezier(.4,0,.25,1),z-index 0s linear .5s;
+}
+.envelope-unsealed .envelope-flap { transform:rotateX(180deg); z-index:15; }
+.envelope-front,
+.envelope-open .envelope-front {
+  z-index:30; clip-path:polygon(0 0,50% 40%,100% 0,100% 100%,0 100%);
+  transition:none;
+}
+.fan { z-index:20; clip-path:none; overflow:visible; }
+.fan-photo>img.fan-letter-image { object-fit:contain; }
+.fan-photo {
+  height:105%; top:-12%;
+  transform:translateY(33%) rotate(0); opacity:0;
+  transition:transform .55s cubic-bezier(.4,0,.6,1),opacity .3s;
+  transition-delay:0s;
+}
+.envelope-open .fan-photo {
+  opacity:1; transform:translate(var(--fan-x),-58%) rotate(var(--fan-angle));
+  transition:transform 1s cubic-bezier(.2,.7,.25,1),opacity .4s;
+  transition-delay:var(--fan-delay);
+}
+.envelope-unsealed .wax-seal { opacity:0; pointer-events:none; transform:translate(-50%,-50%) scale(.6); }
+.envelope-unsealed .envelope-hit { pointer-events:none; }
+.letter-instruction,
+body[data-scene='gallery'] .letter-instruction { top:8%; bottom:auto; animation:none; }
+.letter-instruction .eyebrow { display:none; }
+.letter-instruction h2 { margin:12px 0; }
+body[data-scene='opening'] .letter-instruction p { opacity:0; }
+.envelope-open .gallery-picker,.envelope-open .gallery-picker-label { transition-delay:.9s; }
+
+/* The label remains upright; only the actual paper lies on the tabletop. */
+.desk-letter { transform:translate(-50%,-50%); top:58.2%; }
+.desk-letter-plane {
+  position:absolute; inset:0; display:block; transform-origin:center;
+  transform:perspective(600px) rotateX(64deg) rotateZ(-14deg);
+  filter:drop-shadow(0 5px 3px #51331d77);
+}
+.desk-letter-plane>img { width:100%; height:100%; display:block; animation:desk-pulse 3s infinite; }
+.desk-label { top:120%; transform:translateX(-50%); }
+.desk-letter:is(:hover,.demo-hover) .desk-letter-plane>img { filter:drop-shadow(0 0 16px #fff2a9); }
+
+.stage[data-layout='portrait'] .floating-envelope,
+.stage[data-layout='portrait'] .envelope-open .floating-envelope { width:62%; height:auto; top:55%; aspect-ratio:1.85; }
+.stage[data-layout='portrait'] .letter-instruction,
+body[data-scene='gallery'] .stage[data-layout='portrait'] .letter-instruction { top:8%; bottom:auto; }
+@keyframes envelope-breathe {
+  0%,100% { transform:translate(-50%,-50%) rotate(-3deg); }
+  50% { transform:translate(-50%,calc(-50% - 5px)) rotate(-3deg); }
+}
+@media(prefers-reduced-motion:reduce) {
+  .floating-envelope,.desk-letter-plane>img { animation:none!important; }
+  .envelope-flap,.fan-photo { transition:none!important; }
+}
+

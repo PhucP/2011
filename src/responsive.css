@@ -1,0 +1,180 @@
+/* The outer shell fits the screen; every scene element shares one scaled canvas. */
+html { height:100%; min-width:280px; }
+body { height:100svh; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+.masthead { width:100%; flex:none; margin:0 auto; padding:17px 28px; }
+main { width:100%; flex:1; min-height:0; display:flex; flex-direction:column; padding:0 24px; }
+.stage-shell { position:relative; flex:1; min-height:0; width:100%; }
+.stage { position:absolute; left:50%; top:50%; margin:0; min-height:0; max-height:none; aspect-ratio:auto; transform:translate(-50%,-50%) rotate(var(--view-rotation,0deg)); }
+.scene-canvas { position:absolute; left:50%; top:50%; width:1600px; height:900px; container-type:inline-size; isolation:isolate; overflow:hidden; transform:translate(-50%,-50%) scale(var(--scene-scale,1)); transform-origin:center; }
+.journey-footer { width:100%; flex:none; margin:0; padding:15px 0; }
+.stage-shell:fullscreen { width:100vw; height:100dvh; padding:8px; background:var(--paper); }
+.room-plane { position:absolute; inset:0; width:100%; height:100%; container-type:inline-size; }
+.classroom-art { position:absolute; inset:0; width:100%; height:100%; transform:none; }
+
+/* Corner-pin the rod AND cloth onto the window's actual perspective plane. */
+.curtain-overlay { position:absolute; inset:0; pointer-events:none; overflow:visible; }
+.curtain-rail { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+.curtain-patch { position:absolute; left:0; top:0; width:700px; height:1050px; transform-origin:0 0; mix-blend-mode:screen; opacity:0; }
+.curtain-patch[data-aligned='true'] { opacity:.86; }
+.curtain-cloth,.curtain-cloth>img { position:absolute; inset:0; width:700px; height:1050px; }
+.curtain-cloth { clip-path:inset(10.666667% 0 0); transform-origin:0 112px; animation:pinned-cloth 8s ease-in-out infinite; }
+.curtain-cloth>img { object-fit:fill; }
+@keyframes pinned-cloth { 0%,100%{transform:skewX(0deg)}50%{transform:skewX(.7deg)} }
+
+/* The pocket alone hides the inserted ends. There is no clipping mask on the fan. */
+.floating-envelope,.letter-scene,.fan { overflow:visible; }
+.fan { clip-path:none; }
+.fan-photo { height:105%; top:-12%; padding:.65cqw .65cqw 1.7cqw; }
+.fan-photo>img { object-fit:cover; object-position:center; background:#f1e9d9; }
+.fan-photo>span { bottom:2.5%; font-size:.9cqw; }
+.envelope-open .floating-envelope { width:35%; height:32%; top:61%; }
+.envelope-open .fan-photo { transform:translate(var(--fan-x),-58%) rotate(var(--fan-angle)); }
+.envelope-open .fan-photo:is(:hover,.demo-hover),.envelope-open .fan-photo:focus-visible { transform:translate(var(--fan-x),-65%) rotate(var(--fan-angle)); }
+body[data-scene='gallery'] .letter-instruction { top:3%; bottom:auto; }
+body[data-scene='gallery'] .letter-instruction h2 { font-size:3.3cqw; }
+.gallery-picker { bottom:4%; gap:10px; }
+.gallery-picker>button { width:60px; height:60px; font-size:20px; }
+.gallery-picker-label { bottom:13%; font-size:1.3cqw; }
+.letter-instruction p { font-size:1.25cqw; }
+.letter-instruction .eyebrow { font-size:.8cqw; }
+.scene-tag { font-size:12px; }
+.mobile-room-action { display:none; }
+.memory-layout { min-height:0; grid-template-rows:minmax(0,1fr); }
+.polaroid { min-height:0; max-height:100%; }
+.polaroid>#photo { object-fit:cover; object-position:center; }
+.text-button { font-size:1.1cqw; min-height:52px; }
+.next-button { font-size:1.2cqw; padding:12px 24px; min-height:64px; }
+.next-button span { font-size:36px; }
+.photo-progress>span { width:8px; height:8px; }
+.photo-progress { gap:8px; }
+.paper-top { font-size:.8cqw; }
+.eyebrow { font-size:12px; }
+.ribbon { left:20%; right:20%; top:7%; display:flex; flex-direction:column; justify-content:center; gap:12px; text-align:center; }
+.ribbon-class { font:italic 3.4cqw/1.15 var(--serif); color:#ac4e37; white-space:nowrap; }
+.ribbon-message { font:italic 2.45cqw/1.3 var(--serif); color:#ac4e37; white-space:nowrap; }
+.memory-navigation { bottom:5%; }
+.video-bottom .text-button { font-size:1cqw; }
+.to { font-size:1.8cqw; }.envelope-note { font-size:.8cqw; }
+
+/* A portrait composition is a second fixed artboard, not a stretched landscape. */
+.stage[data-layout='portrait'] .world { background:#e7d5b6; }
+.stage[data-layout='portrait'] .world::before { content:''; position:absolute; inset:0; background:url('../assets/classroom-painting.webp') center/cover; filter:blur(18px); opacity:.22; }
+body[data-scene='flying'] .stage[data-layout='portrait'] .world::before,
+body[data-scene='letter'] .stage[data-layout='portrait'] .world::before,
+body[data-scene='opening'] .stage[data-layout='portrait'] .world::before,
+body[data-scene='gallery'] .stage[data-layout='portrait'] .world::before { opacity:.8; }
+body[data-scene='flying'] .stage[data-layout='portrait'] .room-plane,
+body[data-scene='letter'] .stage[data-layout='portrait'] .room-plane,
+body[data-scene='opening'] .stage[data-layout='portrait'] .room-plane,
+body[data-scene='gallery'] .stage[data-layout='portrait'] .room-plane { opacity:0; }
+.stage[data-layout='portrait'] .room-plane { inset:auto; top:20%; left:0; width:100%; height:auto; aspect-ratio:16/9; box-shadow:0 10px 30px #72513222; }
+.stage[data-layout='portrait'] .room-heading .eyebrow { display:none; }
+.stage[data-layout='portrait'] .room-heading h2 { font-size:3.6cqw; }
+.stage[data-layout='portrait'] .mobile-room-action { display:block; top:72%; bottom:auto; left:50%; transform:translate(-50%,-50%); padding:24px 48px; font-size:4.4cqw; min-height:112px; }
+.stage[data-layout='portrait'] .desk-letter { width:11%; }
+.stage[data-layout='portrait'] .desk-label { display:none; }
+.stage[data-layout='portrait'] .scene-tag { left:6%; bottom:3%; font-size:18px; letter-spacing:1.5px; }
+.stage[data-layout='portrait'] .curtain-panel { width:52%; }
+.stage[data-layout='portrait'] .curtain-panel>div { background-size:100% 100%,450% 160%; }
+.stage[data-layout='portrait'] .corner-blooms { width:43%; top:-1%; }
+.stage[data-layout='portrait'] .bloom-left { left:-7%; }.stage[data-layout='portrait'] .bloom-right { right:-7%; }
+.stage[data-layout='portrait'] .ribbon { left:5%; right:5%; top:10%; min-height:0; padding:25px 18px; gap:20px; }
+.stage[data-layout='portrait'] .ribbon-class { font-size:5.5cqw; }
+.stage[data-layout='portrait'] .ribbon-message { font-size:3.6cqw; }
+.stage[data-layout='portrait'] .intro { padding-bottom:17%; }
+.stage[data-layout='portrait'] .intro h1 { font-size:14cqw; margin:46px 0 35px; letter-spacing:-3px; }
+.stage[data-layout='portrait'] .intro h1 em { font-size:1.2em; }
+.stage[data-layout='portrait'] .intro-overline { font-size:2cqw; max-width:620px; line-height:1.9; letter-spacing:3px; }
+.stage[data-layout='portrait'] .intro-description { font-size:4cqw; max-width:650px; line-height:1.7; }
+.stage[data-layout='portrait'] .start-label { font-size:3.5cqw; margin-top:60px; padding:24px 44px; gap:70px; }
+.stage[data-layout='portrait'] .start-label>b { font-size:65px; }
+.stage[data-layout='portrait'] .touch-hint { font-size:2.3cqw; margin-top:30px; }
+.stage[data-layout='portrait'] .floating-envelope { width:75%; height:26%; top:43%; }
+.stage[data-layout='portrait'] .wax-seal { width:130px; height:130px; }
+.stage[data-layout='portrait'] .wax-seal span { font-size:90px; }
+.stage[data-layout='portrait'] .to { font-size:5cqw; }
+.stage[data-layout='portrait'] .envelope-note { font-size:2.4cqw; }
+.stage[data-layout='portrait'] .postmark { width:90px; height:90px; font-size:30px; }
+.stage[data-layout='portrait'] .postmark small { font-size:12px; }
+.stage[data-layout='portrait'] .letter-instruction { bottom:14%; left:7%; right:7%; }
+.stage[data-layout='portrait'] .letter-instruction h2 { font-size:8.4cqw; line-height:1.2; margin:32px 0; }
+.stage[data-layout='portrait'] .letter-instruction p { font-size:3.2cqw; max-width:650px; margin:auto; }
+.stage[data-layout='portrait'] .letter-instruction .eyebrow { font-size:1.9cqw; letter-spacing:3px; }
+body[data-scene='gallery'] .stage[data-layout='portrait'] .letter-instruction { top:8%; bottom:auto; }
+body[data-scene='gallery'] .stage[data-layout='portrait'] .letter-instruction h2 { font-size:8.3cqw; }
+.stage[data-layout='portrait'] .envelope-open .floating-envelope { width:52%; height:22%; top:52%; }
+.stage[data-layout='portrait'] .fan-photo>span { font-size:2cqw; }
+.stage[data-layout='portrait'] .gallery-picker { width:92%; bottom:5%; flex-wrap:wrap; justify-content:center; gap:12px; }
+.stage[data-layout='portrait'] .gallery-picker>button { width:108px; height:108px; font-size:30px; }
+.stage[data-layout='portrait'] .gallery-picker-label { bottom:30%; font-size:3.2cqw; max-width:85%; margin-left:auto; margin-right:auto; }
+.stage[data-layout='portrait'] .memory-layout { top:10%; bottom:16%; left:10%; right:9%; display:grid; grid-template-columns:1fr; grid-template-rows:42% minmax(0,1fr); gap:24px; }
+.stage[data-layout='portrait'] .polaroid { width:64%; height:100%; min-height:0; justify-self:center; padding:4% 4% 12%; }
+.stage[data-layout='portrait'] .polaroid figcaption { font-size:2.7cqw; bottom:3%; }
+.stage[data-layout='portrait'] .dedication { width:100%; text-align:center; padding:0; align-self:center; }
+.stage[data-layout='portrait'] .dedication .eyebrow { font-size:1.8cqw; letter-spacing:3px; }
+.stage[data-layout='portrait'] .dedication h2 { font-size:7.6cqw; line-height:1.08; margin:16px 0 12px; }
+.stage[data-layout='portrait'] .ink-rule { justify-content:center; font-size:3cqw; margin:8px 0 10px; }
+.stage[data-layout='portrait'] .ink-rule::before { content:''; width:60px; height:1px; background:#b2946266; }
+.stage[data-layout='portrait'] .ink-rule::after { width:60px; }
+.stage[data-layout='portrait'] .written-lines p { font-size:5.1cqw; line-height:1.35; }
+.stage[data-layout='portrait'] .signature { font-size:2.8cqw; margin:22px 0 0; }
+.stage[data-layout='portrait'] .ink-heart { font-size:9cqw; right:-3%; bottom:0; opacity:.35; }
+.stage[data-layout='portrait'] .memory-navigation { left:7%; right:7%; bottom:5%; }
+.stage[data-layout='portrait'] .text-button { font-size:2.8cqw; min-height:96px; }
+.stage[data-layout='portrait'] .next-button { font-size:3cqw; padding:18px 24px; min-height:96px; gap:18px; }
+.stage[data-layout='portrait'] .next-button span { font-size:60px; }
+.stage[data-layout='portrait'] .photo-progress { position:absolute; bottom:-35px; left:50%; transform:translateX(-50%); gap:12px; }
+.stage[data-layout='portrait'] .photo-progress>span { width:10px; height:10px; }
+.stage[data-layout='portrait'] .paper-top { top:4%; left:7%; right:7%; font-size:1.8cqw; letter-spacing:3px; }
+.stage[data-layout='portrait'] .date-stamp { font-size:4cqw; }
+.stage[data-layout='portrait'] .video-scene { justify-content:center; padding:12% 7% 8%; }
+.stage[data-layout='portrait'] .video-heading .eyebrow { font-size:1.9cqw; letter-spacing:3px; }
+.stage[data-layout='portrait'] .video-heading h2 { font-size:9cqw; line-height:1.2; margin:32px 0 65px; }
+.stage[data-layout='portrait'] .video-frame { width:100%; padding:12px; }
+.stage[data-layout='portrait'] .video-caption { font-size:3.6cqw; margin:50px 20px 0; line-height:1.6; }
+.stage[data-layout='portrait'] .play-button>span { width:145px; height:145px; font-size:62px; }
+.stage[data-layout='portrait'] .play-button small { font-size:20px; }
+.stage[data-layout='portrait'] .video-flowers { width:43%; left:-7%; top:0; }
+.stage[data-layout='portrait'] .video-stamp { width:170px; height:170px; top:5%; right:7%; font-size:60px; }
+.stage[data-layout='portrait'] .video-stamp small { font-size:8px; }
+.stage[data-layout='portrait'] .video-books { width:14%; right:43%; bottom:9%; }
+.stage[data-layout='portrait'] .video-bottom { left:7%; right:7%; bottom:6%; }
+.stage[data-layout='portrait'] .video-bottom .text-button { font-size:2.7cqw; }
+.stage[data-layout='portrait'] .paper-plane { font-size:75px; visibility:hidden; }
+.stage[data-layout='portrait'] .video-error { font-size:24px; }
+.stage[data-layout='portrait'] .closing-message>span { font-size:6cqw; }
+.stage[data-layout='portrait'] .closing-message h2 { font-size:9cqw; }
+.stage[data-layout='portrait'] .closing-message p { font-size:3.5cqw; }
+
+/* Wide viewing works without an orientation-lock API, including on iOS. */
+.rotate-exit { position:fixed; z-index:1100; top:max(10px,env(safe-area-inset-top)); right:max(10px,env(safe-area-inset-right)); padding:10px 15px; border:1px solid #ad8f65; border-radius:6px; background:#fff5e1f2; color:#684b32; font-size:12px; box-shadow:0 3px 15px #59452c22; }
+body.wide-view main { padding:0; }
+body.wide-view .stage-shell { position:fixed; inset:8px; width:auto; height:auto; z-index:1000; background:var(--paper); }
+body.wide-view .masthead,body.wide-view .journey-footer { visibility:hidden; }
+
+@media(max-width:1150px) {
+  .occasion,.footer-note { display:none; }
+  .journey-caption { font-size:10px; }
+}
+@media(max-width:700px) {
+  .masthead { padding:12px; }
+  .brand { gap:8px; }.brand>svg { width:26px; }.brand>span { font-size:17px; }
+  .brand small { font-size:5px; letter-spacing:1px; margin-top:5px; }
+  .tools { gap:5px; }.icon-button { width:31px; height:31px; padding:7px; }
+  main { padding:0 10px; }
+  .journey-footer { flex-direction:column; gap:5px; padding:8px 0; }
+  .journey-caption { font-size:10px; gap:7px; }.little-sun { font-size:19px; }
+  .chapters { gap:5px; }.chapters i { font-size:7px; }.chapters>b { width:8px; }
+}
+@media(max-width:360px) {
+  .brand>span { font-size:15px; }.brand>svg { display:none; }
+  .chapters { gap:4px; }.chapters i { font-size:6px; }.chapters>b { width:5px; }
+}
+@media(max-height:520px) and (orientation:landscape) {
+  .masthead { padding:6px 18px; }.brand>span { font-size:18px; }.brand small,.occasion,.journey-footer { display:none; }
+  main { padding:0 8px 6px; }.icon-button { width:30px; height:30px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .curtain-cloth { animation:none!important; }
+}
+

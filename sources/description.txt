@@ -1,0 +1,30 @@
+scene 1: 
+- mở màn là một chiếc rèm che tất cả những thứ phía sau, treo một dòng chữ là "20/11 Chúc mừng ngày nhà giáo Việt Nam"
+- animation: chiếc rèm có đung đưa nhẹ nhàng, khẽ.
+
+scene 2:
+- sau khi nhấn vào màn hình, tấm rèm của scene 1 sẽ từ từ mở sang 2 bên, để lộ ra khung cảnh bên trong.
+- khung cảnh bên trong là khung cảnh một lớp học, ở phía bên trái là cửa sổ, bên ngoài cửa sổ là cây cối, ghế đá. Bên cạnh cửa sổ là bàn giáo viên, trên bàn có nhiều đồ vật sách vở, bút thước, bình hoa, và đặc biệt là 1 phong thư(tỏa ra highlight nhấp nháy hào quang để thu hút chú ý hơn các đồ vật khác). Ngoài ra còn có bục giảng, bảng, 2 dãy bàn học sinh, đồng hồ và cờ Việt Nam ở góc trên.
+- animation: cửa sổ cũng có một tấm rèm lay động nhẹ theo chiều gió (từ ngoài cửa sổ vào trong lớp học)
+- cây cối bên ngoài có lá đung đưa nhẹ, đôi lúc sẽ có một chiếc lá rơi xuống(effect)
+- kim đồng hồ quay
+- bông hoa trên lọ hoa trên bàn giáo viên cũng khẽ khàng lay động
+- thỉnh thoảng có effect một số hạt bụi li ti bay theo chiều gió qua bảng xanh.
+
+scene 3:
+- sau khi nhấn vào bức thư trên bàn giáo viên, bức thư sẽ bay lên và hiện lớn trước màn hình
+
+scene 4:
+- sau khi nhấn vào bức thư, bức thư sẽ mở ra, để lộ ra bên trong là các tấm ảnh
+
+scene 5:
+- khi nhấn vào một tấm ảnh bất kì trên bức thư, ảnh sẽ bay ra và hiển thị bên trái màn hình, bên phải là các dòng chữ dần dần xuất hiện.
+- sau khi ảnh bay ra đúng vị trí, sẽ có các bông hoa và lá xuất hiện dần dần, quấn quanh các góc của bức ảnh
+- có một nút next bên dưới góc phải để trượt sang bức ảnh kế tiếp.
+
+scene 6: 
+- sau khi đã xem xong tất cả ảnh (cuối cùng là 1 video). Bức thư tự động đóng lại, thu nhỏ, bay trở lại bàn giáo viên. Tấm rèm cũng từ từ khép lại.
+- nếu nhấn thêm lần nữa sẽ lặp lại các scene từ scene 1.
+
+
+

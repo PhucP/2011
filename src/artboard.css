@@ -1,0 +1,54 @@
+.artboard-scene { z-index:11; }
+.artboard-content { position:absolute; inset:0; transition:filter .5s,opacity .5s; }
+.artboard-heading { position:absolute; top:4%; left:10%; right:10%; text-align:center; color:#705036; }
+.artboard-heading h2 { font:400 3.1cqw/1.08 var(--hand); margin:8px 0; }
+.artboard-heading p { font:italic .95cqw var(--serif); margin:8px 0; color:#987a54; }
+.pinboard {
+  position:absolute; left:15%; right:15%; top:29%; bottom:17%;
+}
+.pinned-art {
+  position:absolute; width:var(--size); height:auto; aspect-ratio:var(--drawing-ratio,.75);
+  left:var(--x); top:var(--y); padding:0;
+  border:0; background:none; box-shadow:2px 5px 9px #5f422c44;
+  transform:translateY(-50%) rotate(var(--tilt)); transition:transform .25s,box-shadow .25s;
+}
+.pinned-art:nth-child(1) { --x:1%; --y:25%; --size:18%; }
+.pinned-art:nth-child(2) { --x:20%; --y:27%; --size:29%; }
+.pinned-art:nth-child(3) { --x:48%; --y:24%; --size:18%; }
+.pinned-art:nth-child(4) { --x:72%; --y:26%; --size:20%; }
+.pinned-art:nth-child(5) { --x:6%; --y:75%; --size:25%; }
+.pinned-art:nth-child(6) { --x:29%; --y:77%; --size:29%; }
+.pinned-art:nth-child(7) { --x:57%; --y:74%; --size:18%; }
+.pinned-art:nth-child(8) { --x:78%; --y:76%; --size:18%; }
+.pinned-art:is(:hover,.demo-hover),.pinned-art:focus-visible { transform:translateY(calc(-50% - 6px)) rotate(0) scale(1.06); z-index:10; box-shadow:3px 10px 15px #5f422c55; }
+.pinned-art>img { width:100%; height:auto; display:block; }
+.drawing-pin { position:absolute; z-index:2; left:50%; top:-6px; width:14px; height:14px; border-radius:50%; background:radial-gradient(circle at 30% 25%,#f1c59b,#ad654b 60%,#804631); border:1px solid #815033; box-shadow:1px 3px 3px #513b3266; }
+.pinned-caption { display:none; }
+.artboard-navigation { position:absolute; left:6%; right:6%; bottom:5%; display:flex; align-items:center; justify-content:space-between; }
+.artboard-navigation>span { font:italic 1cqw var(--serif); color:#9b805c; }
+.art-viewer { position:absolute; inset:0; z-index:5; display:flex; align-items:center; justify-content:center; }
+.art-backdrop { position:absolute; inset:0; width:100%; height:100%; border:0; background:#3d3025b8; }
+.art-viewing .artboard-content { filter:blur(5px); }
+.art-enlarged {
+  position:relative; width:min(78%,calc(630px * var(--art-ratio,.75))); aspect-ratio:var(--art-ratio,.75);
+  margin:0 0 40px; padding:0; background:none; box-shadow:0 16px 45px #24180e66;
+  pointer-events:none; transform-origin:center;
+}
+.art-enlarged>img { width:100%; height:100%; object-fit:contain; display:block; }
+.art-enlarged figcaption { position:absolute; top:100%; left:0; right:0; text-align:center; color:#fff2d8; font:italic 1cqw var(--serif); padding-top:10px; }
+.art-close { position:absolute; right:4%; top:4%; padding:14px 24px; border:1px solid #dfc59b; background:#fff4de; border-radius:4px; font-size:1.1cqw; color:#735034; }
+.stage[data-layout='portrait'] .artboard-heading { top:4%; left:4%; right:4%; }
+.stage[data-layout='portrait'] .artboard-heading .eyebrow { font-size:1.7cqw; }
+.stage[data-layout='portrait'] .artboard-heading h2 { font-size:7cqw; margin:20px 0; }
+.stage[data-layout='portrait'] .artboard-heading p { font-size:2.6cqw; }
+.stage[data-layout='portrait'] .pinboard { top:27%; bottom:21%; left:5%; right:5%; overflow-x:auto; overflow-y:hidden; scrollbar-width:thin; scrollbar-color:#aa8760 #d7c29c44; }
+.stage[data-layout='portrait'] .pinned-art { left:calc(4% + var(--x) * 2); width:calc(var(--size) * 2); }
+.stage[data-layout='portrait'] .artboard-content::after { content:'Vuốt ngang để xem thêm tranh ⟷'; position:absolute; top:80%; left:0; right:0; text-align:center; font:italic 3cqw var(--serif); color:#987a54; pointer-events:none; }
+.stage[data-layout='portrait'] .pinned-caption { font-size:1.7cqw; }
+.stage[data-layout='portrait'] .artboard-navigation { bottom:5%; }
+.stage[data-layout='portrait'] .artboard-navigation>span { display:none; }
+.stage[data-layout='portrait'] .art-enlarged { width:min(82%,calc(1020px * var(--art-ratio,.75))); margin-bottom:50px; }
+.stage[data-layout='portrait'] .art-enlarged figcaption { font-size:2.6cqw; padding-top:20px; }
+.stage[data-layout='portrait'] .art-close { font-size:3.2cqw; padding:24px 30px; top:5%; }
+@media(prefers-reduced-motion:reduce) { .pinned-art,.artboard-content { transition:none; } }
+

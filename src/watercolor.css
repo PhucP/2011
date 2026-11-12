@@ -1,0 +1,151 @@
+/* One art direction: restrained watercolor, pencil contours, warm ivory paper. */
+:root {
+  --paper: #f7efe0;
+  --ink: #493f32;
+  --muted: #95816a;
+  --red: #a65443;
+  --gold: #d9b37c;
+}
+
+.world { background:#efe0bd; }
+.classroom-art { position:absolute; inset:0; width:100%; height:100%; transform:none; }
+.classroom-painting, .painted-tree, .painted-bouquet {
+  position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:fill;
+}
+.painted-tree {
+  clip-path:polygon(6% 7%,25% 18%,24% 56%,8% 62%);
+  transform-origin:14% 55%;
+  animation:painted-leaves 9s ease-in-out infinite;
+}
+.painted-bouquet {
+  clip-path:polygon(38% 39%,46% 39%,46% 58%,38% 58%);
+  transform-origin:42% 58%;
+  animation:painted-flowers 8s ease-in-out -.6s infinite;
+}
+.room-sheer {
+  position:absolute; left:23.5%; top:10%; width:16%; height:53%;
+  object-fit:fill; opacity:.78; mix-blend-mode:screen; transform-origin:25% 0;
+  animation:sheer-breeze 8s ease-in-out infinite;
+}
+.classroom-art>.room-clock { position:absolute; left:65.7%; top:5%; width:6.3%; height:12%; overflow:visible; filter:drop-shadow(1px 2px 2px #78533133); }
+.world::after { background:linear-gradient(90deg,#fff3cc0a,transparent 55%,#7650370d); }
+.sunbeam { opacity:.35; }
+.chalk-copy { top:27%; left:57%; width:37%; }
+.chalk-copy>span { font-family:var(--hand); font-size:1.15cqw; color:#eee5c7; opacity:.7; }
+.chalk-copy h2 { font-family:var(--hand); font-size:4.5cqw; font-style:normal; line-height:1.06; margin:1.1cqw 0; color:#eee6cd; }
+.chalk-copy p { font-size:1.05cqw; }
+.room-heading { left:34%; top:8%; color:#725139; }
+.room-heading h2 { font-family:var(--hand); font-style:normal; }
+.desk-letter { left:53.5%; top:57.2%; width:9%; }
+.desk-label { background:#faf0dce8; border-color:#b39a75; color:#73583b; }
+
+.corner-blooms { width:25%; top:-2%; }
+.bloom-left { left:-2%; transform:rotate(-3deg); animation:watercolor-blooms 9s ease-in-out infinite; }
+.bloom-right { right:-2%; transform:scaleX(-1) rotate(-3deg); animation:watercolor-blooms-right 9s ease-in-out infinite; }
+
+/* Explicit sibling stacking contexts keep every photo behind the pocket. */
+.floating-envelope { isolation:isolate; transform-style:preserve-3d; }
+.envelope-rear { position:absolute; inset:0; z-index:10; transform-style:preserve-3d; }
+.envelope-back {
+  z-index:0;
+  background:linear-gradient(#bda17455,#c0a27355),url('../assets/paper-painting.webp') center/100% 100%;
+  border:1px solid #967a56; border-radius:3px;
+}
+.envelope-flap {
+  z-index:1; height:67%; backface-visibility:visible;
+  background:linear-gradient(145deg,#fff4dd77,#e1c69a33),url('../assets/paper-painting.webp') center/100% 100%;
+  border-top:1px solid #a98a5d;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:50% 0;
+  transition:transform 1.1s cubic-bezier(.4,0,.25,1);
+}
+.fan {
+  z-index:20; isolation:isolate;
+  /* Above the mouth, cards can fan out. Below it, they stay inside the pocket. */
+  clip-path:polygon(-100% -200%,200% -200%,200% 32%,100% 32%,100% 100%,0 100%,0 32%,-100% 32%);
+}
+.fan-photo {
+  background:linear-gradient(#fffaf0aa,#f7ead2aa),url('../assets/paper-painting.webp') center/100% 100%;
+  border-color:#b7a17e; border-radius:1px 2px 1px 3px;
+  box-shadow:1px 3px 6px #69503944;
+}
+.fan-photo>img { filter:saturate(.96); }
+.fan-photo:is(:hover,.demo-hover),.fan-photo:focus-visible { z-index:99; box-shadow:0 0 0 1px #f5dc9c,1px 3px 12px #6a4e2e66; }
+.envelope-front {
+  z-index:30;
+  background:linear-gradient(32deg,transparent 49.6%,#99774c55 49.9%,transparent 50.2%) bottom left/51% 100% no-repeat,
+    linear-gradient(-32deg,transparent 49.6%,#99774c55 49.9%,transparent 50.2%) bottom right/51% 100% no-repeat,
+    linear-gradient(145deg,#fff7e280,#eed6ad66),url('../assets/paper-painting.webp') center/100% 100%;
+  border:1px solid #a88a60;
+  clip-path:polygon(0 0,50% 64%,100% 0,100% 100%,0 100%);
+  transition:clip-path 1.1s cubic-bezier(.4,0,.25,1);
+}
+.envelope-open .envelope-flap { transform:rotateX(180deg); z-index:1; }
+.envelope-open .envelope-front { clip-path:polygon(0 25%,50% 36%,100% 25%,100% 100%,0 100%); }
+.envelope-hit { z-index:50; }
+.wax-seal { z-index:60; border-color:#e1bc78; background:radial-gradient(circle at 28% 24%,#edcc85,#c3934a 65%,#a47436); }
+.to { color:#75573a; font-family:var(--hand); font-style:normal; font-size:1.6cqw; }
+.envelope-note { color:#977b57; }
+.postmark { border-color:#ae6a506b; color:#a76850; }
+.letter-instruction h2 { font-family:var(--hand); font-style:normal; font-size:3.7cqw; }
+body[data-scene='gallery'] .letter-instruction h2 { font-size:3.3cqw; }
+.envelope-open .floating-envelope { top:58%; }
+.gallery-picker>button { border-color:#e6d3b08a; background:#6e50382b; }
+
+/* A common paper surface, with a faint grid added above the even central wash. */
+.paper {
+  background-color:#fcf4e5;
+  background-image:linear-gradient(#98866a27 1px,transparent 1px),
+    linear-gradient(90deg,#98866a27 1px,transparent 1px),
+    linear-gradient(#fffcf47a,#fffcf47a),url('../assets/paper-painting.webp');
+  background-size:26px 26px,26px 26px,100% 100%,100% 100%;
+  box-shadow:inset 0 0 25px #bb956312;
+}
+.paper::before { border-color:#b0926830; }
+.paper-top { color:#a18360; }
+.polaroid {
+  background:linear-gradient(#fff8e6aa,#f7e7cb99),url('../assets/paper-painting.webp') center/100% 100%;
+  border:1px solid #b59c77; border-radius:1px 2px 1px 3px;
+  box-shadow:3px 5px 9px #6b4c2e25;
+  transform:rotate(var(--photo-tilt,-3deg)); animation:none;
+  will-change:transform,opacity;
+}
+.polaroid::after { content:''; position:absolute; inset:1.6%; border:1px solid #92704c21; pointer-events:none; }
+.polaroid>#photo { background:#e9dfce; }
+.polaroid figcaption { color:#8e704d; }
+.tape { background:#e7d6b58c; }
+.photo-flowers { filter:drop-shadow(1px 2px 1px #70593818); }
+.flowers-a { width:55%; left:-15%; top:-8%; transform-origin:15% 90%; }
+.flowers-b { width:35%; right:-12%; bottom:-8%; transform-origin:center; }
+.dedication h2 { color:#5f4834; font-family:var(--hand); font-style:normal; font-size:3.8cqw; line-height:1.15; }
+.written-lines p { color:#67533c; }
+.ink-rule { color:#b48c55; }
+.signature { color:#9b7b54; }
+.next-button {
+  border-color:#a08058; border-radius:2px 0 3px 1px;
+  background:linear-gradient(#f9e8c677,#f3d8aa77),url('../assets/paper-painting.webp') center/100% 100%;
+  box-shadow:2px 3px 0 #cfb48b5c; color:#725038;
+}
+.next-button:is(:hover,.demo-hover) { background-color:#e7c793; }
+.text-button { color:#8c6e4d; }
+.video-heading h2 { color:#745037; font-family:var(--hand); font-style:normal; font-size:3.6cqw; }
+.video-frame { background:#936b4b; box-shadow:0 0 0 1px #a48760,3px 4px 0 #dcc29b; border-radius:2px 1px 3px 0; }
+.video-caption { color:#957552; }
+.video-books { width:14%; right:0; bottom:10%; }
+.video-flowers { width:27%; left:-2%; top:-2%; }
+.closing-message { background:#573e2e38; }
+.closing-message h2 { font-family:var(--hand); font-style:normal; }
+
+@keyframes painted-leaves { 0%,100%{transform:rotate(-.2deg)}50%{transform:rotate(.25deg)} }
+@keyframes painted-flowers { 0%,100%{transform:rotate(-.3deg)}50%{transform:rotate(.6deg)} }
+@keyframes sheer-breeze { 0%,100%{transform:skewX(-1deg) scaleX(.99)}50%{transform:skewX(3deg) scaleX(1.06)} }
+@keyframes watercolor-blooms { 0%,100%{transform:rotate(-3deg)}50%{transform:rotate(-1deg)} }
+@keyframes watercolor-blooms-right { 0%,100%{transform:scaleX(-1) rotate(-3deg)}50%{transform:scaleX(-1) rotate(-1deg)} }
+
+
+
+@media(prefers-reduced-motion:reduce) {
+  .polaroid { will-change:auto; }
+  .painted-tree,.painted-bouquet,.room-sheer,.corner-blooms { animation:none!important; }
+}
+
